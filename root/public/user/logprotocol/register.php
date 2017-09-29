@@ -1,12 +1,128 @@
-<?php // register form
-// check of gebruiker is ingelogd
+<?php
+//Check if user is logged in
+    session_start();
+    if(isset($_SESSION["username"])){
+        header("location: message.php?msg=You are already logged in");
+        exit();
+    }
+?>
+<?php
+// Namecheck
+    if(isset($_POST["usernamecheck"])){
+        include_once("./../../../sql/db_connection.php");
+        $username = preg_replace('#[^a-z0-9]#i', '', $_POST['usernamecheck']);
+        $sql = "SELECT id FROM user WHERE username='$username' LIMIT 1";
+        $query = mysqli_query($db_connection, $sql);
+        $username_check = mysqli_num_rows($query);
+        if(strlen($username)< 3 || strlen($username) > 16 ){
+            echo '<strong style="color:#F00;">must be 3 - 16 characters</strong>';
+            exit();
+        }
+        if (is_numeric($username[0])){
+            echo '<strong style="color:#F00;">Username must begin with a letter</strong>';
+            exit();
+        }
+        if($username_check < 1){
+            echo '<strong style="color:#009900;">'. $username .' is OK</strong>';
+            exit();
+        } else {
+            echo '<strong style="color:#F00;">'. $username.' is taken</strong>';
+            exit();
+        }
+
+    }
+
+?>
+<?php
+// Send to database
+if(isset($_POST["u"])){
+    include_once ("./../../../sql/db_connection.php");
+    $u = preg_replace('#[^a-z0-9]#i', '', $_POST['u']);
+    $e = mysqli_real_escape_string($db_connection, $_POST['e']);
+    $p = $_POST['p'];
+    //Datacheck
+    $sql = "SELECT id FROM user WHERE username='.$u.' LIMIT 1";
+    $query = mysqli_query($db_connection, $sql);
+    $u_check = mysqli_num_rows($query);
+
+    $sql = "SELECT id FROM user WHERE email='.$e.' LIMIT 1";
+    $query = mysqli_query($db_connection, $sql);
+    $e_check = mysqli_num_rows($query);
+
+    //Errors
+    if ($u === "" || $e === "" || $p === ""){
+        echo "The form submission is missing values.";
+        exit();
+    } else if ($u_check > 0){
+        echo "Username already taken.";
+        exit();
+    } else if ($e_check > 0){
+        echo "<a href='./resetpassword.php'>Email already taken, forgot your password?</a>";
+        exit();
+    } else if (strlen($u) < 3 || strlen($u) > 16){
+        echo "Submit username ranging from 3 - 16 characters.";
+        exit();
+    } else if (is_numeric($u[0])){
+        echo "The username cannot begin with a number.";
+        exit();
+    } else {
+        $p_hash = password_hash($p, PASSWORD_BCRYPT);
+
+        $sql = "INSERT INTO user (username, email, password, signup, lastlogin, notescheck) VALUES('$u','$e','$p_hash',now(),now(),now())";
+        $query = mysqli_query($db_connection, $sql);
+        $uid = mysqli_insert_id($db_connection);
+
+        $sql = "INSERT INTO useroptions (id, username, background) VALUES ('$uid','$u','original')";
+
+        if(!file_exists("./../files/$u")){
+            mkdir("./../files/$u", 0755);
+        }
+
+        /*$to = "$e";
+		$from = "auto_responder@catshup.com";
+		$subject = 'Catshup Account Registration';
+		$message = '<!DOCTYPE html>
+                    <html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>yoursitename Message</title>
+                        </head>
+                        <body style="margin:0px; font-family:Tahoma, Geneva, sans-serif;">
+                            <div style="padding:10px; background:#333; font-size:24px; color:#CCC;">
+                                <a href="#">Catshup</a> Account Activation
+                            </div>
+                            <div style="padding:24px; font-size:17px;">
+                                Hello '.$u.',<br /><br />
+                                Click the link below to activate your account when ready:<br /><br />
+                                <a href="localhost/catshup/root/public/user/logprotocol/activation.php?id='.$uid.'&u='.$u.'&e='.$e.'&p='.$p_hash.'">
+                                    Click here to activate your account now
+                                </a><br /><br />
+                                Login after successful activation using your:<br />* E-mail Address: <b>'.$e.'</b>
+                            </div>
+                        </body>
+                    </html>';
+
+		$headers = "From: $from\n";
+        $headers .= "MIME-Version: 1.0\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\n";
+		mail($to, $subject, $message, $headers);
+        */
+		echo "Signup success";
+		exit();
+    }
+    exit();
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Catshup</title>
     <link rel="stylesheet" type="text/css" href="./../../../css.css"/>
-    <script src='../../../js/js.js'></script></head>
+    <script src='/catshup/root/js/js.js'></script>
+    <script src='/catshup/root/js/check.js'></script>
+    <script src='/catshup/root/js/ajax.js'></script>
 </head>
 <body>
     <?php include_once("./../../../template_php/template_header.php")?>
@@ -20,7 +136,7 @@
             </div>
             <div>
                 <span>Email Adress:</span>
-                <input id="email" type="text" onfocus="emptyElement('status')" onkeyup="restrict('email')" maxlength="88"/><br/>
+                <input id="email" type="text" onblur="/*checkemail();*/" onfocus="emptyElement('status')" onkeyup="restrict('email')" maxlength="88"/><br/>
                 <span id="emailstatus"> </span>
             </div>
             <div>
@@ -31,8 +147,8 @@
             </div>
 
             <span><a href="terms.php">Terms and Conditions</a></span><br/>
-
-            <button id="registerbutton" onclick="register();">Register</button>
+            <span id="status"></span><br/>
+            <button id="registerbutton" onclick="signup();">Register</button>
 
         </form>
     </div>

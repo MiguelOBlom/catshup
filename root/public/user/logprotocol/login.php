@@ -6,7 +6,8 @@
 <head>
     <title>Catshup</title>
     <link rel="stylesheet" type="text/css" href="/catshup/root/css.css"/>
-    <script src='/catshup/root/js/js.js'></script></head>
+    <script src='/catshup/root/js/js.js'></script>
+</head>
 <body>
     <?php include_once("./../../../template_php/template_header.php")?>
     <div id="Content">
@@ -19,6 +20,7 @@
                 <input type ="password" name= "pass" ><br/>
                 <input type = "submit" value = "submit" >
             </form>
+
 
             <a href="./register.php">Register</a><br>
             <a href="./resetpassword.php">Forgot Password?</a>
