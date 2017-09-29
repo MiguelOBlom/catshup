@@ -93,6 +93,7 @@ $tbl_usercourses = "CREATE TABLE usercourses(
                     id INT(11) NOT NULL AUTO_INCREMENT,
                     userid INT(11) NOT NULL,
                     courseid INT(11) NOT NULL,
+                    PRIMARY KEY (id)
                     )";
 
 //notifications , custom documents
