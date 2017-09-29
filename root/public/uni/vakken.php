@@ -1,2 +1,2 @@
 // check of gebruiker is ingelogd
-// pas homework aan
+//lijst van vakken --> vak
