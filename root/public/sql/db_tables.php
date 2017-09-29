@@ -88,6 +88,13 @@ $tbl_todo = "CREATE TABLE todo(
             done ENUM('0','1') NOT NULL DEFAULT '0',
             PRIMARY KEY (id)
             )";
+
+$tbl_usercourses = "CREATE TABLE usercourses(
+                    id INT(11) NOT NULL AUTO_INCREMENT,
+                    userid INT(11) NOT NULL,
+                    courseid INT(11) NOT NULL,
+                    )";
+
 //notifications , custom documents
 function qtable($name, $dbcon, $x){
     $query = mysqli_query($dbcon, $x);
@@ -106,7 +113,8 @@ $tables = array(
                 array("Document", $tbl_document),
                 array("Homework", $tbl_homework),
                 array("ToDo", $tbl_todo),
-                array("Useroptions",$tbl_useroptions)
+                array("Useroptions",$tbl_useroptions),
+                array("Usercourses",$tbl_usercourses)
                 );
 
 for($i = 0; $i < count($tables); $i++) {
