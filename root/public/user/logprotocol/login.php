@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
-//login script
+<?php//login script
 //check of gebruiker is ingelogd
-//store cookie
+//store cookie?>
 <head>
     <title>Catshup</title>
-    <link rel="stylesheet" type="text/css" href="./../../../css.css"/>
-    <script src='../../../js/js.js'></script></head>
+    <link rel="stylesheet" type="text/css" href="/catshup/root/css.css"/>
+    <script src='/catshup/root/js/js.js'></script></head>
 <body>
     <?php include_once("./../../../template_php/template_header.php")?>
     <div id="Content">
         <div id="login, form">
+            <h3>login</h3>
             <form>
-                <h1>login</h1>
-                Username/e-mail: <br/>
-                <input type= "text" name = "login" value = "Henk">
-                Password:<br/>
-                <input type ="password" name= "pass" >
-                Submit<br/>
+                <span>Username/e-mail:</span><br/>
+                <input type= "text" name = "login" value = "Henk"><br/>
+                <span>Password:</span><br/>
+                <input type ="password" name= "pass" ><br/>
                 <input type = "submit" value = "submit" >
             </form>
 

@@ -1,3 +1,10 @@
+*{
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+}
 body{
-    color: aqua;
+
+    color: dimgray;
+    font-family: "Goudy Old Style" ;
 }
