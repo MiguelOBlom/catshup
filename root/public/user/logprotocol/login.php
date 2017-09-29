@@ -4,8 +4,9 @@
 //check of gebruiker is ingelogd
 //store cookie
 <head>
-<?php include_once("./../../../template_php/template_head.php")?>
-</head>
+    <title>Catshup</title>
+    <link rel="stylesheet" type="text/css" href="./../../../css.css"/>
+    <script src="./../../../js.js"></script></head>
 <body>
     <?php include_once("./../../../template_php/template_header.php")?>
 

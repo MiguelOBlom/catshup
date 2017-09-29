@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include_once("./../template_php/template_head.php")?>
+        <title>Catshup</title>
+        <link rel="stylesheet" type="text/css" href="./../css.css"/>
+        <script src="./../js.js"></script>
     </head>
     <body>
         <?php include_once("./../template_php/template_header.php"); ?>
