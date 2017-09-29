@@ -1,6 +1,3 @@
-<head>
-    <title>Catshup</title>
-    <script src="./../css.css"/>
-    <script src="./../js.js"/>
-
-</head>
+<title>Catshup</title>
+<link rel="stylesheet" type="text/css" href="./../css.css"/>
+<script src="./../js.js"></script>
