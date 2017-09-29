@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>Catshup</title>
-        <link rel="stylesheet" type="text/css" href="/catshup/root/css.css"/>
-        <script src='/catshup/root/js/js.js'></script>
+        <link rel="stylesheet" type="text/css" href="./../css.css"/>
+        <script src='./../js/js.js'></script>
     </head>
     <body>
         <?php include_once("./../template_php/template_header.php"); ?>

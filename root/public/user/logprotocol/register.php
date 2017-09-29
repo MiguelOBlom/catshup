@@ -120,9 +120,9 @@ if(isset($_POST["u"])){
 <head>
     <title>Catshup</title>
     <link rel="stylesheet" type="text/css" href="./../../../css.css"/>
-    <script src='/catshup/root/js/js.js'></script>
-    <script src='/catshup/root/js/check.js'></script>
-    <script src='/catshup/root/js/ajax.js'></script>
+    <script src='./../../../js/js.js'></script>
+    <script src='./../../../js/check.js'></script>
+    <script src='./../../../js/ajax.js'></script>
 </head>
 <body>
     <?php include_once("./../../../template_php/template_header.php")?>
