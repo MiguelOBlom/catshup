@@ -73,7 +73,7 @@ if(isset($_POST["u"])){
         $uid = mysqli_insert_id($db_connection);
 
         $sql = "INSERT INTO useroptions (id, username, background) VALUES ('$uid','$u','original')";
-
+        mysqli_query($db_connection, $sql);
         if(!file_exists("./../files/$u")){
             mkdir("./../files/$u", 0755);
         }
