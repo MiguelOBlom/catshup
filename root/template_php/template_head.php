@@ -1,7 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Miguel
- * Date: 29/09/2017
- * Time: 13:01
- */
+<head>
+    <title>Catshup</title>
+    <script src="./../css.css"/>
+    <script src="./../js.js"/>
+
+</head>
