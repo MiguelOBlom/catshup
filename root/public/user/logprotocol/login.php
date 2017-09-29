@@ -15,7 +15,7 @@
             <h3>login</h3>
             <form>
                 <span>Username/e-mail:</span><br/>
-                <input type= "text" name = "login" value = "Henk"><br/>
+                <input type= "text" name = "login" value = "Voorbeeld: Henk" style="color:lightgrey;"><br/>
                 <span>Password:</span><br/>
                 <input type ="password" name= "pass" ><br/>
                 <input type = "submit" value = "submit" >

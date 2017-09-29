@@ -107,6 +107,7 @@ if(isset($_POST["u"])){
         $headers .= "Content-type: text/html; charset=iso-8859-1\n";
 		mail($to, $subject, $message, $headers);
         */
+        echo '<a href="/catshup/root/public/user/logprotocol/activation.php?id='.$uid.'&u='.$u.'&e='.$e.'&p='.$p_hash.'">HOI</a>';
 		echo "Signup success";
 		exit();
     }
@@ -136,7 +137,7 @@ if(isset($_POST["u"])){
             </div>
             <div>
                 <span>Email Adress:</span>
-                <input id="email" type="text" onblur="/*checkemail();*/" onfocus="emptyElement('status')" onkeyup="restrict('email')" maxlength="88"/><br/>
+                <input id="email" type="text" onblur="checkemail();" onfocus="emptyElement('status')" onkeyup="restrict('email')" maxlength="88"/><br/>
                 <span id="emailstatus"> </span>
             </div>
             <div>

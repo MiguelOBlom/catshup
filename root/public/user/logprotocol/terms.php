@@ -1,8 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Miguel
- * Date: 29/09/2017
- * Time: 16:03
- */
-//terms and conditions
+<html>
+<head>
+
+</head>
+<body>
+<?php include_once("./../../../template_php/template_header.php")?>
+<?php include_once("./../../../template_php/template_footer.php")?>
+
+</body>
+</html>
