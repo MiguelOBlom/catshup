@@ -66,7 +66,7 @@ if(isset($_POST["u"])){
         echo "The username cannot begin with a number.";
         exit();
     } else {
-        $p_hash = password_hash($p, PASSWORD_BCRYPT);
+        $p_hash = md5($p);
 
         $sql = "INSERT INTO user (username, email, password, signup, lastlogin, notescheck) VALUES('$u','$e','$p_hash',now(),now(),now())";
         $query = mysqli_query($db_connection, $sql);
@@ -137,14 +137,14 @@ if(isset($_POST["u"])){
             </div>
             <div>
                 <span>Email Adress:</span>
-                <input id="email" type="text" onblur="checkemail();" onfocus="emptyElement('status')" onkeyup="restrict('email')" maxlength="88"/><br/>
+                <input id="email" type="text" onblur="/*checkemail();*/" onfocus="emptyElement('status')" onkeyup="restrict('email')" maxlength="88"/><br/>
                 <span id="emailstatus"> </span>
             </div>
             <div>
                 <span>Cool Password:</span>
-                <input id="password1" type="password" onfocus="emptyElement('status')" maxlength="16" /><br/>
+                <input id="password1" type="password" onfocus="emptyElement('status')" maxlength="100" /><br/>
                 <span>Repeat Password:</span>
-                <input id="password2" type="password" onfocus="emptyElement('status')" maxlength="16" /><br/>
+                <input id="password2" type="password" onfocus="emptyElement('status')" maxlength="100" /><br/>
             </div>
 
             <span><a href="terms.php">Terms and Conditions</a></span><br/>

@@ -7,7 +7,7 @@ if (isset($_GET['id']) && isset($_GET['u']) && isset($_GET['e']) && isset($_GET[
     $e = mysqli_real_escape_string($db_connection, $_GET['e']);
     $p = mysqli_real_escape_string($db_connection, $_GET['p']);
     // Evaluate the lengths of the incoming $_GET variable
-    if($id == "" || strlen($u) < 3 || strlen($e) < 5 || strlen($p) != 60){
+    if($id == "" || strlen($u) < 3 || strlen($e) < 5 || strlen($p) != 32){
         header("location: message.php?msg=activation_string_length_issues");
         exit();
     }

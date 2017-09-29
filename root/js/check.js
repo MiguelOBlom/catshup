@@ -9,10 +9,6 @@ function restrict(el){
     tf.value = tf.value.replace(rx, "");
 }
 
-function emptyElement(x){
-    _(x).innerHTML = "";
-}
-
 function checkusername() {
     var u = _("username").value;
     if(u !== "") {
@@ -26,7 +22,7 @@ function checkusername() {
         ajax.send("usernamecheck=" + u);
     }
 }
-
+/*
 function checkemail(){
     var e = _("email").value;
     if(!/[A-Z.a-z0-9]+@umail.leidenuniv.nl/g.test(e) && e !== ""){
@@ -35,7 +31,7 @@ function checkemail(){
         _("emailstatus").innerHTML = "";
     }
 }
-
+*/
 function signup() {
     var u = _("username").value;
     var e = _("email").value;
