@@ -3,8 +3,11 @@
 //login script
 //check of gebruiker is ingelogd
 //store cookie
+<head>
 <?php include_once("./../../../template_php/template_head.php")?>
-<?php include_once("./../../../template_php/template_header.php")?>
+</head>
+<body>
+    <?php include_once("./../../../template_php/template_header.php")?>
 
     <div id="login, form">
         <form>
@@ -34,5 +37,5 @@
 
 
 <?php include_once("./../../../template_php/template_footer.php")?>
-
+</body>
 </html>
