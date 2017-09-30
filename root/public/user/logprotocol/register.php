@@ -13,7 +13,13 @@
         $username = preg_replace('#[^a-z0-9]#i', '', $_POST['usernamecheck']);
         $sql = "SELECT id FROM user WHERE username='$username' LIMIT 1";
         $query = mysqli_query($db_connection, $sql);
-        $username_check = mysqli_num_rows($query);
+        if($query){
+            $username_check = mysqli_num_rows($query);
+        } else {
+            echo 'There is an issue with the database, please report this to the admin.';
+            exit();
+        }
+
         if(strlen($username)< 3 || strlen($username) > 16 ){
             echo '<strong style="color:#F00;">must be 3 - 16 characters</strong>';
             exit();
@@ -40,6 +46,7 @@ if(isset($_POST["u"])){
     $u = preg_replace('#[^a-z0-9]#i', '', $_POST['u']);
     $e = mysqli_real_escape_string($db_connection, $_POST['e']);
     $p = $_POST['p'];
+    $ip = preg_replace('#[^0-9.]#', '', getenv('REMOTE_ADDR'));
     //Datacheck
     $sql = "SELECT id FROM user WHERE username='.$u.' LIMIT 1";
     $query = mysqli_query($db_connection, $sql);
@@ -68,7 +75,7 @@ if(isset($_POST["u"])){
     } else {
         $p_hash = md5($p);
 
-        $sql = "INSERT INTO user (username, email, password, signup, lastlogin, notescheck) VALUES('$u','$e','$p_hash',now(),now(),now())";
+        $sql = "INSERT INTO user (username, email, password, signup, lastlogin, notescheck, ip) VALUES('$u','$e','$p_hash',now(),now(),now(),$ip)";
         $query = mysqli_query($db_connection, $sql);
         $uid = mysqli_insert_id($db_connection);
 

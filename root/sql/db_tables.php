@@ -12,6 +12,7 @@ $tbl_user = "CREATE TABLE user(
             lastlogin DATETIME NOT NULL,
             notescheck DATETIME NOT NULL,
             activated ENUM('0','1')NOT NULL DEFAULT '0',
+            ip VARCHAR(255) NOT NULL,
             PRIMARY KEY (id),
             UNIQUE KEY username (username,email)
               )";

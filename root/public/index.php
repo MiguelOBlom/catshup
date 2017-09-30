@@ -8,7 +8,7 @@
     <body>
         <?php include_once("./../template_php/template_header.php"); ?>
         <div id="Content">
-            <div id="ContentWrapper">
+            <div id="Content">
                 <div id="div1"></div>
             </div>
         </div>

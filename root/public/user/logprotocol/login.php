@@ -10,6 +10,7 @@ if (isset($_SESSION["username"])){
         include_once("./../../../sql/db_connection.php");
         $l = mysqli_real_escape_string($db_connection, $_POST['l']);
         $p = md5($_POST['p']);
+        $ip = preg_replace('#[^0-9.]#','', getenv('REMOTE_ADDR'));
         if($l === "" || $p === ""){
             echo "login_failed";
             exit();
@@ -32,7 +33,7 @@ if (isset($_SESSION["username"])){
                 setcookie("user", $db_username, strtotime('+30 days'), "/", "", "", TRUE);
                 setcookie("pass", $db_pass_str, strtotime('+30 days'), "/", "","", TRUE);
 
-                $sql = "UPDATE users SET lastlogin=now() WHERE username='$db_username' LIMIT 1";
+                $sql = "UPDATE users SET lastlogin=now(), ip='$ip' WHERE username='$db_username' LIMIT 1";
                 $query = mysqli_query($db_connection, $sql);
                 echo $db_username;
                 exit();

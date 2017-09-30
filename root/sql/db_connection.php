@@ -6,7 +6,6 @@ $pass = "";
 $database = "huiswerk";
 
 $db_connection = mysqli_connect( $host, $user, $pass, $database );
-
 if (mysqli_connect_errno()){
     if (mysqli_connect_errno($db_connection) == 1049 ){
         $conn = mysqli_connect($host, $user,$pass);
