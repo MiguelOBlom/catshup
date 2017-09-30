@@ -22,6 +22,6 @@ default :
     <?php include_once("./../../template_php/template_header.php")?>
     <div id="Content">
     </div>
-    <?php include_once("./../../template_php/template_footer.php.php")?>
+    <?php include_once("./../../template_php/template_footer.php")?>
 </body>
 </html>
