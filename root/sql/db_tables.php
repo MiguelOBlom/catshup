@@ -20,6 +20,7 @@ $tbl_user = "CREATE TABLE user(
 $tbl_useroptions = "CREATE TABLE useroptions(
                     id INT(11) NOT NULL,
                     username VARCHAR(255) NOT NULL,
+                    temp_pass VARCHAR(255) NULL,
                     background VARCHAR(255) NOT NULL,
                     question VARCHAR(255) NULL,
                     answer VARCHAR(255) NULL,

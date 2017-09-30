@@ -4,7 +4,8 @@
     $userlevel = "";
     $joindate = "";
     $lastsession = "";
-    $isOwner = "Dit is niet jouw profiel";
+    $isOwner = false;
+    $admin = false;
 
     if(isset($_GET["u"])){
         $u = preg_replace('#[^a-z0-9]#i','', $_GET['u']);
@@ -21,7 +22,7 @@
     }
 
     if($u === $log_username && $user_ok === true){
-        $isOwner = "Dit is jouw profiel";
+        $isOwner = true;
     }
 
     while($row = mysqli_fetch_array($uquery, MYSQLI_ASSOC)){
@@ -31,6 +32,10 @@
         $lastlogin = $row["lastlogin"];
         $joindate = strftime("%b, %d, %Y", strtotime($signup));
         $lastsession = strftime("%b, %d, %Y", strtotime($lastlogin));
+    }
+
+    if($userlevel === 'd'){
+        $admin = true;
     }
 ?>
 <!DOCTYPE html>
@@ -49,6 +54,14 @@
         <p>Userlevel: <?php echo $userlevel;?></p>
         <p>Join date: <?php echo $joindate;?></p>
         <p>Last session: <?php echo $lastsession;?></p>
+        <?php
+        if ($admin){
+            echo '<a href="./../../admin/panel.php">Admin pagina</a>';
+        }
+        if ($isOwner){
+            echo "<a href='./settings.php'>Settings</a>";
+        }
+        ?>
     </div>
     <?php include_once("./../../template_php/template_footer.php")?>
 </body>
