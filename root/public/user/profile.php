@@ -83,7 +83,7 @@ $friend_count = $query_count[0];
 if($friend_count < 1){
     $friendsHTML = $u." has no friends yet";
 } else {
-    $max = 18;
+    $max = 2;
     $all_friends = array();
     $sql = "SELECT user1 FROM friends WHERE user2='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";
     $query = mysqli_query($db_connection, $sql);
@@ -126,7 +126,7 @@ if($friend_count < 1){
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="/catshup/root/css.css"/>
+    <link rel="stylesheet" type="text/css" href="/catshup/root/css.css?"/>
     <script src="/catshup/root/js/js.js"></script>
     <script src="/catshup/root/js/ajax.js"></script>
     <script src="/catshup/root/js/friendsblockers.js"></script>
@@ -156,7 +156,7 @@ if($friend_count < 1){
             echo "<a href='./settings.php'>Settings</a>";
         }
         ?>
-        <p>Friend Button: <span id="friendButton"><?php echo $friend_button; ?></span> <?php echo $u." has ".$friends_count." friends.";?><?php echo $friends_view_all_link;?></p>
+        <p>Friend Button: <span id="friendButton"><?php echo $friend_button; ?></span> <?php echo $u." has ".$friend_count." friends.";?><?php echo $friends_view_all_link;?></p>
         <p>Block Button: <span id="blockButton"><?php echo $block_button; ?></span></p>
         <hr/>
         <p><?php echo $friendsHTML; ?></p>
