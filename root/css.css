@@ -4,7 +4,10 @@
     padding: 5px;
 }
 body{
-
     color: dimgray;
     font-family: "Goudy Old Style" ;
+}
+
+img{
+    height: 40px;
 }

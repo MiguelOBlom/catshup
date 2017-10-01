@@ -73,6 +73,54 @@ if($viewerBlockOwner == true){
     $block_button = '<button onclick="blockToggle(\'block\',\''.$u.'\',\'blockButton\')">Block User</button>';
 }
 ?>
+<?php
+$friendsHTML = '';
+$friends_view_all_link = '';
+$sql = "SELECT COUNT(id) FROM friends WHERE user1='$u' AND accepted='1' OR user2='$u' AND accepted='1'";
+$query = mysqli_query($db_connection, $sql);
+$query_count = mysqli_fetch_row($query);
+$friend_count = $query_count[0];
+if($friend_count < 1){
+    $friendsHTML = $u." has no friends yet";
+} else {
+    $max = 18;
+    $all_friends = array();
+    $sql = "SELECT user1 FROM friends WHERE user2='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";
+    $query = mysqli_query($db_connection, $sql);
+    while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+        array_push($all_friends, $row["user1"]);
+    }
+    $sql = "SELECT user2 FROM friends WHERE user1='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";
+    $query = mysqli_query($db_connection, $sql);
+    while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+        array_push($all_friends, $row["user2"]);
+    }
+    $friendArrayCount = count($all_friends);
+    if($friendArrayCount > $max){
+        array_splice($all_friends, $max);
+    }
+    if($friend_count > $max){
+        $friends_view_all_link = '<a href="view_friends.php?u='.$u.'">view all</a>';
+    }
+    $orLogic = '';
+    foreach($all_friends as $key => $user){
+        $orLogic .= "username='$user' OR ";
+    }
+    $orLogic = chop($orLogic, "OR ");
+    $sql = "SELECT username, avatar FROM user WHERE $orLogic";
+    $query = mysqli_query($db_connection, $sql);
+    while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+        $friend_username = $row["username"];
+        $friend_avatar = $row["avatar"];
+        if($friend_avatar != ""){
+            $friend_pic = 'files/'.$friend_username.'/'.$friend_avatar.'';
+        } else {
+            $friend_pic = './../../img/avatar.jpg';
+        }
+        $friendsHTML .= '<a href="profile.php?u='.$friend_username.'"><img class="friendpics" src="'.$friend_pic.'" alt="'.$friend_username.'" title="'.$friend_username.'"></a>';
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -95,9 +143,11 @@ if($viewerBlockOwner == true){
                 }
             ?>
         </h3>
+        <hr/>
         <p>Userlevel: <?php echo $userlevel;?></p>
         <p>Join date: <?php echo $joindate;?></p>
         <p>Last session: <?php echo $lastsession;?></p>
+        <hr/>
         <?php
         if ($admin){
             echo '<a href="./../../admin/panel.php">Admin pagina</a>';
@@ -106,8 +156,10 @@ if($viewerBlockOwner == true){
             echo "<a href='./settings.php'>Settings</a>";
         }
         ?>
-        <p>Friend Button: <span id="friendButton"><?php echo $friend_button; ?></span></p>
+        <p>Friend Button: <span id="friendButton"><?php echo $friend_button; ?></span> <?php echo $u." has ".$friends_count." friends.";?><?php echo $friends_view_all_link;?></p>
         <p>Block Button: <span id="blockButton"><?php echo $block_button; ?></span></p>
+        <hr/>
+        <p><?php echo $friendsHTML; ?></p>
     </div>
     <?php include_once("./../../template_php/template_footer.php")?>
 </body>
