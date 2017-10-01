@@ -98,6 +98,45 @@ $tbl_usercourses = "CREATE TABLE usercourses(
                     PRIMARY KEY (id)
                     )";
 
+$tbl_friends = "CREATE TABLE friends(
+                id INT(11) NOT NULL AUTO_INCREMENT,
+                user1 VARCHAR(16) NOT NULL,
+                user2 VARCHAR(16) NOT NULL,
+                datemade DATETIME NOT NULL,
+                accepted ENUM('0','1') NOT NULL DEFAULT '0',
+                PRIMARY KEY (id)
+                )";
+
+$tbl_blockedusers = "CREATE TABLE blockedusers (
+                    id INT(11) NOT NULL AUTO_INCREMENT,
+                    blocker VARCHAR(16) NOT NULL,
+                    blockee VARCHAR(16) NOT NULL,
+                    blockdate DATETIME NOT NULL,
+                    PRIMARY KEY(id)
+                    )";
+
+$tbl_status = "CREATE TABLE status (
+                id INT(11) NOT NULL AUTO_INCREMENT,
+                osid INT(11)NOT NULL,
+                account_name VARCHAR(16) NOT NULL,
+                author VARCHAR(16) NOT NULL,
+                type ENUM('a', 'b', 'c') NOT NULL,
+                data TEXT NOT NULL,
+                postdate DATETIME NOT NULL,
+                PRIMARY KEY (id)
+                )";
+
+$tbl_notifications = "CREATE TABLE notifications(
+                      id INT(11) NOT NULL AUTO_INCREMENT,
+                      username VARCHAR(16) NOT NULL,
+                      initiator VARCHAR(16) NOT NULL,
+                      app VARCHAR(255) NOT NULL,
+                      note VARCHAR(255) NOT NULL,
+                      did_read ENUM('0', '1') NOT NULL DEFAULT '0',
+                      date_time DATETIME NOT NULL,
+                      PRIMARY KEY (id)
+                      )";
+
 //notifications , custom documents
 function qtable($name, $dbcon, $x){
     $query = mysqli_query($dbcon, $x);
@@ -117,8 +156,12 @@ $tables = array(
                 array("Homework", $tbl_homework),
                 array("ToDo", $tbl_todo),
                 array("Useroptions",$tbl_useroptions),
-                array("Usercourses",$tbl_usercourses)
-                );
+                array("Usercourses",$tbl_usercourses),
+                array("Friends",$tbl_friends),
+                array("Blockedusers",$tbl_blockedusers),
+                array("Status",$tbl_status),
+                array("Notifications",$tbl_notifications)
+);
 
 for($i = 0; $i < count($tables); $i++) {
     qtable($tables[$i][0], $db_connection, $tables[$i][1]);

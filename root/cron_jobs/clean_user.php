@@ -1,7 +1,7 @@
 <?php
 //This script should run daily
 include_once ("./../sql/db_connection.php");
-$sql = "SELECT id, username FROM user WHERE signup<=CURRENT_DATE  - INTERVAL 7 DAY AND activated='0'"
+$sql = "SELECT id, username FROM user WHERE signup<=CURRENT_DATE  - INTERVAL 7 DAY AND activated='0'";
 $query = mysqli_query($db_connection, $sql);
 $numrows = mysqli_num_rows($query);
 if ($numrows>0){

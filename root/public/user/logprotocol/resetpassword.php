@@ -1,4 +1,5 @@
 <?php
+include_once("./../../../sql/db_connection.php");
 include_once("./../../../template_php/checkloginstatus.php");
 // If user is already logged in, header that weenis away
 if($user_ok === true){

@@ -6,6 +6,7 @@
 // --> lesson
 
 <?php
+include_once("./../sql/db_connection.php");
 include_once("./../template_php/checkloginstatus.php");
     if($admin !== true){
         header("location: ./../public/index.php");

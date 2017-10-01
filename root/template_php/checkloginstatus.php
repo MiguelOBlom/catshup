@@ -1,7 +1,7 @@
 <?php
+
 session_start();
 define('ROOTPATH', __DIR__);
-include_once ($_SERVER['DOCUMENT_ROOT']."/catshup/root/sql/db_connection.php");
 
 $user_ok = false;
 $log_id = "";

@@ -1,9 +1,6 @@
 hier komen de bestanden van de gebruikers
 
-bugs: ip wordt niet goed in de db geladen
-todos : paths aanpassen met define('ROOTPATH', __DIR__);
-
-
+bugs: ip wordt niet goed in de db geladen,
 default :
 
 
