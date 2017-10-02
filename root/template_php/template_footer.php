@@ -48,7 +48,9 @@ if($user_count < 1){
         <div id="userlist">
             <h3>Random Users</h3>
             <?php echo $userHTML; ?>
-            <p><?php echo $user_view_all_link; ?></p>
+            <p><?php if($user_count > 0){
+                    echo $user_view_all_link;
+                } ?></p>
         </div>
     </div>
 </div>
