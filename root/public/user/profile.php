@@ -85,12 +85,12 @@ if($friend_count < 1){
 } else {
     $max = 2;
     $all_friends = array();
-    $sql = "SELECT user1 FROM friends WHERE user2='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";
+    $sql = "SELECT user1 FROM friends WHERE user2='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";// SHUFFLE THESE TWO
     $query = mysqli_query($db_connection, $sql);
     while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
         array_push($all_friends, $row["user1"]);
     }
-    $sql = "SELECT user2 FROM friends WHERE user1='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";
+    $sql = "SELECT user2 FROM friends WHERE user1='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";// SHUFFLE THESE TWO
     $query = mysqli_query($db_connection, $sql);
     while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
         array_push($all_friends, $row["user2"]);
@@ -107,7 +107,7 @@ if($friend_count < 1){
         $orLogic .= "username='$user' OR ";
     }
     $orLogic = chop($orLogic, "OR ");
-    $sql = "SELECT username, avatar FROM user WHERE $orLogic";
+    $sql = "SELECT username, avatar FROM user WHERE $orLogic ORDER BY RAND()";
     $query = mysqli_query($db_connection, $sql);
     while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
         $friend_username = $row["username"];

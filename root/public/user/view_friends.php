@@ -37,7 +37,7 @@ if($friend_count < 1){
         $orLogic .= "username='$user' OR ";
     }
     $orLogic = chop($orLogic, "OR ");
-    $sql = "SELECT username, avatar FROM user WHERE $orLogic";
+    $sql = "SELECT username, avatar FROM user WHERE $orLogic ORDER BY RAND()";
     $query = mysqli_query($db_connection, $sql);
     while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
         $friend_username = $row["username"];
