@@ -7,7 +7,7 @@ $user_count = $query_count[0];
 if($user_count < 1){
     $userHTML = "There are no activated users yet.";
 } else {
-    $max = 2;
+    $max = 10;
     $all_users = array();
     $sql = "SELECT username FROM user WHERE activated='1' ORDER BY RAND() LIMIT $max";
     $query = mysqli_query($db_connection, $sql);
@@ -20,7 +20,7 @@ if($user_count < 1){
         array_splice($all_users, $max);
     }
     if($user_count > $max){
-        $user_view_all_link = '<a href="/catshup/root/public/view_users.php?">view all</a>';
+        $user_view_all_link = '<a href="/catshup/root/public/view_users.php">view all</a>';
     }
     $orLogic = '';
     foreach($all_users as $key => $user){
@@ -45,6 +45,7 @@ if($user_count < 1){
 <div id="Footer">
     <div id="FooterWrapper">
         <h3>De footer blablala</h3>
+        <?php if(!isset($footerfriends)){ ?>
         <div id="userlist">
             <h3>Random Users</h3>
             <?php echo $userHTML; ?>
@@ -52,5 +53,6 @@ if($user_count < 1){
                     echo $user_view_all_link;
                 } ?></p>
         </div>
+        <?php };?>
     </div>
 </div>

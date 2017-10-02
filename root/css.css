@@ -11,3 +11,7 @@ body{
 img{
     height: 40px;
 }
+
+div#viewallusers img, div#viewallfriends img{
+    height: 80px;
+}
