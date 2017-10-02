@@ -1,4 +1,7 @@
 <?php
+include_once("./../../../sql/db_connection.php");
+?>
+<?php
 //Check if user is logged in
     session_start();
     if(isset($_SESSION["username"])){
@@ -9,7 +12,6 @@
 <?php
 // Namecheck
     if(isset($_POST["usernamecheck"])){
-        include_once("./../../../sql/db_connection.php");
         $username = preg_replace('#[^a-z0-9]#i', '', $_POST['usernamecheck']);
         $sql = "SELECT id FROM user WHERE username='$username' LIMIT 1";
         $query = mysqli_query($db_connection, $sql);

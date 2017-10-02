@@ -1,4 +1,5 @@
 <?php
+include_once("./../../../sql/db_connection.php");
 session_start();
 if (isset($_SESSION["username"])){
     header("location: ./../profile.php?u=".$_SESSION["username"]);
@@ -7,7 +8,6 @@ if (isset($_SESSION["username"])){
 ?>
 <?php
     if(isset($_POST["l"])){
-        include_once("./../../../sql/db_connection.php");
         $l = mysqli_real_escape_string($db_connection, $_POST['l']);
         $p = md5($_POST['p']);
         $ip = preg_replace('#[^0-9.]#','', getenv('REMOTE_ADDR'));

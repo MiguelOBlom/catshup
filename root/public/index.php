@@ -1,3 +1,7 @@
+<?php
+session_start();
+include_once ("./../sql/db_connection.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +13,9 @@
         <?php include_once("./../template_php/template_header.php"); ?>
         <div id="Content">
             <div id="Content">
-                <div id="div1"></div>
+                <div id="div1">
+                    Index
+                </div>
             </div>
         </div>
         <?php include_once("./../template_php/template_footer.php"); ?>

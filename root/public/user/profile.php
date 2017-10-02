@@ -159,6 +159,7 @@ if($friend_count < 1){
         <p>Friend Button: <span id="friendButton"><?php echo $friend_button; ?></span> <?php echo $u." has ".$friend_count." friends.";?><?php echo $friends_view_all_link;?></p>
         <p>Block Button: <span id="blockButton"><?php echo $block_button; ?></span></p>
         <hr/>
+        <h3>FRENDS: :)</h3>
         <p><?php echo $friendsHTML; ?></p>
     </div>
     <?php include_once("./../../template_php/template_footer.php")?>
