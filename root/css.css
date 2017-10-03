@@ -15,3 +15,7 @@ img{
 div#viewallusers img, div#viewallfriends img{
     height: 80px;
 }
+
+img#profilepic{
+    height: 160px;
+}

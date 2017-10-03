@@ -50,6 +50,9 @@ if($user_count < 1){
             <h3>Random Users</h3>
             <?php echo $userHTML; ?>
             <p><?php if($user_count > 0){
+                    if($user_count > $max) {
+                        echo $user_count . " users in total.";
+                    }
                     echo $user_view_all_link;
                 } ?></p>
         </div>

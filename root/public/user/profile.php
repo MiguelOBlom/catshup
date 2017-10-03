@@ -2,6 +2,9 @@
     include_once ("./../../sql/db_connection.php");
     include_once ("./../../template_php/checkloginstatus.php");
     $u = "";
+    $profile_pic = "";
+    $profile_pic_button = "";
+    $avatar_form = "";
     $userlevel = "";
     $joindate = "";
     $lastsession = "";
@@ -24,15 +27,28 @@
 
     if($u === $log_username && $user_ok === true){
         $isOwner = true;
+        $avatar_form = '<form id="avatar_form" enctype="multipart/form-data" method="post" action="./../../template_php/photo_system.php"';
+        $avatar_form .= '<h4>Change your avatar</h4>';
+        $avatar_form .= '<input type="file" name="avatar" required/>';
+        $avatar_form .= '<p><input type="submit" value="Upload"/></p>';
+        $avatar_form .= '</form>';
     }
 
     while($row = mysqli_fetch_array($uquery, MYSQLI_ASSOC)){
         $profile_id = $row["id"];
         $userlevel = $row["userlevel"];
         $signup = $row["signup"];
+        $avatar = $row["avatar"];
         $lastlogin = $row["lastlogin"];
         $joindate = strftime("%b, %d, %Y", strtotime($signup));
         $lastsession = strftime("%b, %d, %Y", strtotime($lastlogin));
+    }
+
+
+    if($avatar == NULL) {
+        $profile_pic = '<img id="profilepic" src="./../../img/avatar.jpg" alt="' . $u . '">';
+    } else {
+        $profile_pic = '<img id="profilepic" src="./files/'.$u.'/'.$avatar.'" alt="'.$u.'">';
     }
 
     if($userlevel === 'd' && $isOwner){
@@ -85,7 +101,7 @@ if($friend_count < 1){
 } else {
     $max = 2;
     $all_friends = array();
-    $sql = "SELECT user1 FROM friends WHERE user2='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";// SHUFFLE THESE TWO
+    $sql = "SELECT user1 FROM friends WHERE user2='$u' AND accepted='1' ORDER BY RAND() LIMIT $max";// SHUFFLE THESE TWO OR state
     $query = mysqli_query($db_connection, $sql);
     while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
         array_push($all_friends, $row["user1"]);
@@ -125,8 +141,8 @@ if($friend_count < 1){
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="/catshup/root/css.css?"/>
+    <title>Catshup <?php echo $u ?>'s profile</title>
+    <link rel="stylesheet" type="text/css" href="/catshup/root/css.css?v=0"/>
     <script src="/catshup/root/js/js.js"></script>
     <script src="/catshup/root/js/ajax.js"></script>
     <script src="/catshup/root/js/friendsblockers.js"></script>
@@ -143,6 +159,11 @@ if($friend_count < 1){
                 }
             ?>
         </h3>
+        <div id="profile_pic_box">
+            <?php echo $profile_pic_button; ?>
+            <?php echo $avatar_form; ?>
+            <?php echo $profile_pic; ?>
+        </div>
         <hr/>
         <p>Userlevel: <?php echo $userlevel;?></p>
         <p>Join date: <?php echo $joindate;?></p>
