@@ -137,12 +137,21 @@ if($friend_count < 1){
     }
 }
 ?>
-
+<?php
+$coverpic = "";
+$sql = "SELECT filename FROM photos WHERE user='$u' ORDER BY RAND() LIMIT 1";
+$query = mysqli_query($db_connection, $sql);
+if(mysqli_num_rows($query) > 0){
+    $row = mysqli_fetch_row($query);
+    $filename = $row[0];
+    $coverpic = '<img src="files/'.$u.'/'.$filename.'" alt="pic">';
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Catshup <?php echo $u ?>'s profile</title>
-    <link rel="stylesheet" type="text/css" href="/catshup/root/css.css?v=0"/>
+    <link rel="stylesheet" type="text/css" href="/catshup/root/css.css?v=1"/>
     <script src="/catshup/root/js/js.js"></script>
     <script src="/catshup/root/js/ajax.js"></script>
     <script src="/catshup/root/js/friendsblockers.js"></script>
@@ -168,6 +177,10 @@ if($friend_count < 1){
         <p>Userlevel: <?php echo $userlevel;?></p>
         <p>Join date: <?php echo $joindate;?></p>
         <p>Last session: <?php echo $lastsession;?></p>
+        <hr/>
+        <div id="photo_showcase" onclick="window.location = 'photos.php?u=<?php echo $u; ?>';" title="view <?php echo $u; ?>&#39;s photo galleries">
+            <?php echo $coverpic; ?>
+        </div>
         <hr/>
         <?php
         if ($admin){

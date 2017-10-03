@@ -1,3 +1,21 @@
 overal:
 checken op ingelogd
 css
+
+
+statussen toevoegen
+
+admin panel
+admin addcourse
+admin adddocument
+admin addhomework
+admin addlecturer
+admin addlesson
+
+uni bestand
+uni les
+uni vak
+uni vakken
+
+user settings
+user todo

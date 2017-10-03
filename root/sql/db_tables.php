@@ -137,6 +137,16 @@ $tbl_notifications = "CREATE TABLE notifications(
                       PRIMARY KEY (id)
                       )";
 
+$tbl_photos = "CREATE TABLE photos(
+              id INT(11) NOT NULL AUTO_INCREMENT,
+              user VARCHAR(16) NOT NULL,
+              gallery VARCHAR(16) NOT NULL,
+              filename VARCHAR(255) NOT NULL,
+              description VARCHAR(255) NOT NULL,
+              uploaddate DATETIME NOT NULL,
+              PRIMARY KEY(id)
+              )";
+
 //notifications , custom documents
 function qtable($name, $dbcon, $x){
     $query = mysqli_query($dbcon, $x);
@@ -160,7 +170,8 @@ $tables = array(
                 array("Friends",$tbl_friends),
                 array("Blockedusers",$tbl_blockedusers),
                 array("Status",$tbl_status),
-                array("Notifications",$tbl_notifications)
+                array("Notifications",$tbl_notifications),
+                array("Photos", $tbl_photos)
 );
 
 for($i = 0; $i < count($tables); $i++) {

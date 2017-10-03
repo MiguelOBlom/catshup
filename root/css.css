@@ -17,5 +17,9 @@ div#viewallusers img, div#viewallfriends img{
 }
 
 img#profilepic{
-    height: 160px;
+    height: 200px;
+}
+
+#photos img, #picbox img{
+    height:auto;
 }
