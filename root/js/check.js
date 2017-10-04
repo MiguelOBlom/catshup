@@ -1,14 +1,3 @@
-function restrict(el){
-    var tf = _(el);
-    var rx = new RegExp;
-    if (el === "email"){
-        rx = /[' "]/gi;
-    } else if(el === "username"){
-        rx = /[^a-z0-9]/gi;
-    }
-    tf.value = tf.value.replace(rx, "");
-}
-
 function checkusername() {
     var u = _("username").value;
     if(u !== "") {
@@ -16,7 +5,7 @@ function checkusername() {
         var ajax = ajaxObj("POST", 'register.php');
         ajax.onreadystatechange = function () {
             if (ajaxReturn(ajax) === true) {
-                _("usernamestatus").innerHTML = ajax.responseText;// dit vervangt de hele pagina;
+                _("usernamestatus").innerHTML = ajax.responseText;
             }
         };
         ajax.send("usernamecheck=" + u);

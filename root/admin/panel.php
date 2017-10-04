@@ -1,10 +1,3 @@
-// check of gebruiker is ingelogd
-// --> course
-// --> document
-// --> homework
-// --> lecturer
-// --> lesson
-
 <?php
 include_once("./../sql/db_connection.php");
 include_once("./../template_php/checkloginstatus.php");
