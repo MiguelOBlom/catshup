@@ -5,6 +5,25 @@ if($admin !== true){
     header("location: ./../public/index.php");
 }
 ?>
+<?php
+$FORMsql = "SELECT id, coursename FROM course";
+$FORMquery = mysqli_query($db_connection, $FORMsql);
+$FORMcount = mysqli_num_rows($FORMquery);
+
+$FIELDNAMEsql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='lesson'";
+$FIELDNAMEquery = mysqli_query($db_connection, $FIELDNAMEsql);
+$TBLsql = "SELECT * FROM lesson";
+$TBLquery= mysqli_query($db_connection, $TBLsql);
+$TBLItemCount = mysqli_num_rows($TBLquery);
+$TBLFieldCount = mysqli_num_fields($TBLquery);
+
+$vak = [];
+$vaksql = "SELECT id, coursename FROM course";
+$vakquery = mysqli_query($db_connection, $vaksql);
+while($index = mysqli_fetch_array($vakquery, MYSQLI_NUM)){
+    $vak[$index[0]] = $index[1];
+};
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +36,6 @@ if($admin !== true){
 <?php include_once("./../template_php/template_header.php")?>
 <div id="Content">
     <a href="./panel.php">Back to the panel.</a>
-    <?php
-    $FORMsql = "SELECT id, coursename FROM course";
-    $FORMquery = mysqli_query($db_connection, $FORMsql);
-    $FORMcount = mysqli_num_rows($FORMquery);
-    ?>
     <?php if($FORMcount > 0){?>
     <form id="lesson" onsubmit="return false;">
         <select>
@@ -40,26 +54,6 @@ if($admin !== true){
     <?php } else {?>
         <p>There aren't any courses yet, add them in the course tab</p>
     <?php };?>
-    <?php
-    $TBLsql = "SELECT * FROM lesson";
-    $FIELDNAMEsql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='lesson'";
-    $TBLquery= mysqli_query($db_connection, $TBLsql);
-    $FIELDNAMEquery = mysqli_query($db_connection, $FIELDNAMEsql);
-    $TBLItemCount = mysqli_num_rows($TBLquery);
-    $TBLFieldCount = mysqli_num_fields($TBLquery);
-    ?>
-    <?php
-        $vak = [];
-        $idsql = "SELECT id FROM course";
-        $vaksql = "SELECT coursename FROM course";
-        $vakquery = mysqli_query($db_connection, $vaksql);
-        $idquery = mysqli_query($db_connection, $idsql);
-        while($itemid = mysqli_fetch_array($idquery, MYSQLI_NUM)){
-
-            $itemvak = mysqli_fetch_array($vakquery,MYSQLI_NUM);
-            $vak[$itemid[0]] = $itemvak[0];
-        };
-    ?>
    <?php if($TBLItemCount > 0){?>
         <table>
             <tr>

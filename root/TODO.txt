@@ -4,13 +4,15 @@ css
 
 
 statussen toevoegen
+date --> datetime for lesson
 
 admin panel
-admin addcourse
-admin adddocument
-admin addhomework
-admin addlecturer
-admin addlesson
+admin addcourse             >db>lay out
+admin adddocument           >db>lay out
+admin adddocumentcategory   >db>lay out
+admin addhomework           >db>lay out
+admin addlecturer           >db>lay out
+admin addlesson             >db>lay out
 
 uni bestand
 uni les

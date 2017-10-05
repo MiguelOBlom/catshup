@@ -76,9 +76,9 @@ $tbl_homework = "CREATE TABLE homework(
                 homeworkdesc TEXT NULL,
                 homeworkshortdesc TINYTEXT NULL,
                 homeworkurl VARCHAR(255) NULL,
-                courseid INT(11) NULL,
-                documentid INT(11) NULL,
                 tododate DATETIME NOT NULL,
+                lessonid INT(11) NULL,
+                documentid INT(11) NULL,
                 PRIMARY KEY (id),
                 UNIQUE KEY homeworkname (homeworkname)                
                 )";
@@ -147,6 +147,13 @@ $tbl_photos = "CREATE TABLE photos(
               PRIMARY KEY(id)
               )";
 
+$tbl_documentcategory = "CREATE TABLE documentcategory(
+                        id INT(11) NOT NULL AUTO_INCREMENT,
+                        category VARCHAR(32),
+                        PRIMARY KEY (id),
+                        UNIQUE KEY category (category)
+                        )";
+
 //notifications , custom documents
 function qtable($name, $dbcon, $x){
     $query = mysqli_query($dbcon, $x);
@@ -171,7 +178,8 @@ $tables = array(
                 array("Blockedusers",$tbl_blockedusers),
                 array("Status",$tbl_status),
                 array("Notifications",$tbl_notifications),
-                array("Photos", $tbl_photos)
+                array("Photos", $tbl_photos),
+                array("Documentcategory", $tbl_documentcategory)
 );
 
 for($i = 0; $i < count($tables); $i++) {

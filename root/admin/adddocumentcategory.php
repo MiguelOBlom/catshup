@@ -6,8 +6,8 @@ if($admin !== true){
 }
 ?>
 <?php
-$TBLsql = "SELECT * FROM lecturer";
-$FIELDNAMEsql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='lecturer'";
+$TBLsql = "SELECT * FROM documentcategory";
+$FIELDNAMEsql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='documentcategory'";
 $TBLquery= mysqli_query($db_connection, $TBLsql);
 $FIELDNAMEquery = mysqli_query($db_connection, $FIELDNAMEsql);
 $TBLItemCount = mysqli_num_rows($TBLquery);
@@ -26,9 +26,7 @@ $TBLFieldCount = mysqli_num_fields($TBLquery);
 <div id="Content">
     <a href="./panel.php">Back to the panel.</a>
     <form id="course" onsubmit="return false;">
-        <input id="lecturername" type="text" onkeyup="restrict('lecturername');" maxlength="40"/>
-        <input id="lectureremail" type="text" onkeyup="restrict('lectureremail');" maxlength="10"/>
-        <input id="lecturerroomno" type="text"  onkeyup="restrict('lecturerroomno');" />
+        <input id="category" type="text" onkeyup="restrict('category');" maxlength="40"/>
         <input type="submit"/>
         <span id="status"></span>
     </form>
@@ -50,7 +48,7 @@ $TBLFieldCount = mysqli_num_fields($TBLquery);
             <?php }; ?>
         </table>
     <?php } else { ?>
-        <p>No lecturers yet!</p>
+        <p>No categories yet!</p>
     <?php };?>
 </div>
 <?php include_once("./../template_php/template_footer.php")?>

@@ -5,6 +5,18 @@ if($admin !== true){
     header("location: ./../public/index.php");
 }
 ?>
+<?php
+$FORMsql = "SELECT id, lecturername FROM lecturer";
+$FORMquery = mysqli_query($db_connection, $FORMsql);
+$FORMcount = mysqli_num_rows($FORMquery);
+
+$TBLsql = "SELECT * FROM course";
+$FIELDNAMEsql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='course'";
+$TBLquery= mysqli_query($db_connection, $TBLsql);
+$FIELDNAMEquery = mysqli_query($db_connection, $FIELDNAMEsql);
+$TBLItemCount = mysqli_num_rows($TBLquery);
+$TBLFieldCount = mysqli_num_fields($TBLquery);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,14 +29,9 @@ if($admin !== true){
 <?php include_once("./../template_php/template_header.php")?>
 <div id="Content">
     <a href="./panel.php">Back to the panel.</a>
-    <?php
-    $FORMsql = "SELECT id, lecturername FROM lecturer";
-    $FORMquery = mysqli_query($db_connection, $FORMsql);
-    $FORMcount = mysqli_num_rows($FORMquery);
-    ?>
     <?php if($FORMcount > 0){?>
         <form id="course" onsubmit="return false;">
-            <input id="coursename" type="text" onblur="checkcourse();" onkeyup="restrict('coursename');" maxlength="40"/>
+            <input id="coursename" type="text" onkeyup="restrict('coursename');" maxlength="40"/>
             <input id="coursecode" type="text" onkeyup="restrict('coursecode');" maxlength="10"/>
             <input id="courseurl" type="text"  onkeyup="restrict('courseurl');" />
             <select name="lecturer" required>
@@ -39,14 +46,6 @@ if($admin !== true){
     <?php } else { ?>
         <p>No lecturers yet, add them in the lecturer's tab.</p>
     <?php };?>
-    <?php
-    $TBLsql = "SELECT * FROM course";
-    $FIELDNAMEsql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='course'";
-    $TBLquery= mysqli_query($db_connection, $TBLsql);
-    $FIELDNAMEquery = mysqli_query($db_connection, $FIELDNAMEsql);
-    $TBLItemCount = mysqli_num_rows($TBLquery);
-    $TBLFieldCount = mysqli_num_fields($TBLquery);
-    ?>
     <?php if($TBLItemCount > 0){?>
     <table>
         <tr>

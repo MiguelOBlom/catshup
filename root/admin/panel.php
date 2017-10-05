@@ -18,6 +18,7 @@ include_once("./../template_php/checkloginstatus.php");
 <div id="Content">
     <a href="addcourse.php">Courses</a>
     <a href="adddocument.php">Documents</a>
+    <a href="adddocumentcategory.php">Document Categories</a>
     <a href="addhomework.php">Homeworks</a>
     <a href="addlecturer.php">Lecturers</a>
     <a href="addlesson.php">Lessons</a>
