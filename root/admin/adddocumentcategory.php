@@ -6,6 +6,32 @@ if($admin !== true){
 }
 ?>
 <?php
+if(isset($_POST["category"])) {
+    $category = preg_replace('#[^a-z0-9]#i', '', $_POST['category']);
+    //Datacheck
+
+    $catsql = "SELECT id FROM documentcategory WHERE category='$category' LIMIT 1";
+    $catquery = mysqli_query($db_connection, $catsql);
+    $cat_check = mysqli_num_rows($catquery);
+
+    //Errors
+    if ($category === ""){
+        echo "The form submission is missing values.";
+        exit();
+    } else if ($cat_check > 0){
+        echo "Category already exists.";
+        exit();
+    } else {
+        $sql = "INSERT INTO documentcategory (category) VALUES('$category')";
+        mysqli_query($db_connection, $sql);
+
+        echo "send_success";
+        exit();
+    }
+    exit();
+}
+?>
+<?php
 $TBLsql = "SELECT * FROM documentcategory";
 $FIELDNAMEsql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='documentcategory'";
 $TBLquery= mysqli_query($db_connection, $TBLsql);
@@ -20,6 +46,8 @@ $TBLFieldCount = mysqli_num_fields($TBLquery);
     <link rel="stylesheet" type="text/css" href="/catshup/root/css.css"/>
     <script src="/catshup/root/js/js.js"></script>
     <script src="/catshup/root/js/ajax.js"></script>
+    <script src="./send/documentcategory.js"></script>
+
 </head>
 <body>
 <?php include_once("./../template_php/template_header.php")?>
@@ -27,7 +55,7 @@ $TBLFieldCount = mysqli_num_fields($TBLquery);
     <a href="./panel.php">Back to the panel.</a>
     <form id="course" onsubmit="return false;">
         <input id="category" type="text" onkeyup="restrict('category');" maxlength="40"/>
-        <input type="submit"/>
+        <input id="lecturerbutton" type="submit" onclick="documentcategorysend();"/>
         <span id="status"></span>
     </form>
     <?php if($TBLItemCount > 0){?>

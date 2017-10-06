@@ -7,11 +7,11 @@ statussen toevoegen
 date --> datetime for lesson
 
 admin panel
-admin addcourse             >db>lay out
+admin addcourse             >lay out
 admin adddocument           >db>lay out
-admin adddocumentcategory   >db>lay out
+admin adddocumentcategory   >lay out
 admin addhomework           >db>lay out
-admin addlecturer           >db>lay out
+admin addlecturer           >lay out
 admin addlesson             >db>lay out
 
 uni bestand
