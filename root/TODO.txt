@@ -4,15 +4,15 @@ css
 
 
 statussen toevoegen
+
 date --> datetime for lesson
 
-admin panel
-admin addcourse             >lay out
+
+
 admin adddocument           >db>lay out
-admin adddocumentcategory   >lay out
-admin addhomework           >db>lay out
-admin addlecturer           >lay out
-admin addlesson             >db>lay out
+
+admin addhomework           >lay out // check of vak van les overeenkomt met vak van document
+
 
 uni bestand
 uni les
@@ -21,3 +21,11 @@ uni vakken
 
 user settings
 user todo
+
+layout
+
+admin panel
+admin addcourse             >lay out
+admin adddocumentcategory   >lay out
+admin addlecturer           >lay out
+admin addlesson             >lay out

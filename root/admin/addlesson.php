@@ -6,6 +6,30 @@ if($admin !== true){
 }
 ?>
 <?php
+if(isset($_POST["lessonname"])) {
+    $lessonname = preg_replace('#[^a-z0-9 ]#i', '', $_POST['lessonname']);
+    $lessonurl = mysqli_real_escape_string($db_connection, $_POST['lessonurl']);
+    $lessondate = preg_replace('#[^0-9:- ]#i', '', $_POST['lessondate']);
+    $lessonroom = preg_replace('#[^a-z0-9]#i', '', $_POST['lessonroom']);
+    $courseid = preg_replace('#[^0-9]#i', '', $_POST['courseid']);
+
+
+//Errors
+    if ($lessonname === "" || $lessonurl === "" || $lessondate === "" || $lessonroom === "" || $courseid === ""){
+        echo "The form submission is missing values.";
+        exit();
+    } else {
+        $sql = "INSERT INTO lesson (lessonname, lessonurl, lessondate, lessonroom, courseid) 
+                VALUES('$lessonname', '$lessonurl', '$lessondate', '$lessonroom','$courseid')";
+        mysqli_query($db_connection, $sql);
+
+        echo "send_success";
+        exit();
+    }
+    exit();
+}
+?>
+<?php
 $FORMsql = "SELECT id, coursename FROM course";
 $FORMquery = mysqli_query($db_connection, $FORMsql);
 $FORMcount = mysqli_num_rows($FORMquery);
@@ -31,6 +55,7 @@ while($index = mysqli_fetch_array($vakquery, MYSQLI_NUM)){
     <link rel="stylesheet" type="text/css" href="/catshup/root/css.css"/>
     <script src="/catshup/root/js/js.js"></script>
     <script src="/catshup/root/js/ajax.js"></script>
+    <script src="send/lesson.js"></script>
 </head>
 <body>
 <?php include_once("./../template_php/template_header.php")?>
@@ -38,7 +63,7 @@ while($index = mysqli_fetch_array($vakquery, MYSQLI_NUM)){
     <a href="./panel.php">Back to the panel.</a>
     <?php if($FORMcount > 0){?>
     <form id="lesson" onsubmit="return false;">
-        <select>
+        <select id ="courseid">
             <option value=""></option>
             <?php while($FORMrow = mysqli_fetch_array($FORMquery)){?>
                 <option value="<?php echo $FORMrow["id"];?>"><?php echo $FORMrow["coursename"]; ?></option>
@@ -48,7 +73,7 @@ while($index = mysqli_fetch_array($vakquery, MYSQLI_NUM)){
         <input id="lessonurl" type="text"  onkeyup="restrict('lessonurl');" />
         <input id="lessondate" type="date"  />
         <input id="lessonroom" type="text"  onkeyup="restrict('lessonroom');" />
-        <input type="submit"/>
+        <input id="lessonbutton" type="submit" onclick="lessonsend();"/>
         <span id="status"></span>
     </form>
     <?php } else {?>

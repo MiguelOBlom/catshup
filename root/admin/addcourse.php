@@ -7,10 +7,10 @@ if($admin !== true){
 ?>
 <?php
 if(isset($_POST["coursename"])) {
-$coursename = preg_replace('#[^a-z0-9]#i', '', $_POST['coursename']);
-$coursecode = preg_replace('#[^a-z0-9@.]#i', '', $_POST['coursecode']);
-$courseurl = preg_replace('#[^a-z0-9.@]#i', '', $_POST['courseurl']);
-$lecturerid = preg_replace('#[^a-z0-9]#i', '', $_POST['lecturerid']);
+$coursename = preg_replace('#[^a-z0-9 ]#i', '', $_POST['coursename']);
+$coursecode = preg_replace('#[^a-z0-9]#i', '', $_POST['coursecode']);
+$courseurl = mysqli_real_escape_string($db_connection, $_POST['courseurl']);
+$lecturerid = preg_replace('#[^0-9]#i', '', $_POST['lecturerid']);
 //Datacheck
 
 $cnsql = "SELECT id FROM course WHERE coursename='$coursename' LIMIT 1";

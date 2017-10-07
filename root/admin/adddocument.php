@@ -5,6 +5,37 @@ if($admin !== true){
     header("location: ./../public/index.php");
 }
 ?>
+<?php
+if(isset($_POST["documentname"])) {
+    $documentname = preg_replace('#[^a-z0-9 ]#i', '', $_POST['documentname']);
+    $documentdesc = mysqli_real_escape_string($db_connection, $_POST['documentdesc']);
+    $documentshortdesc = mysqli_real_escape_string($db_connection, $_POST['documentshortdesc']);
+    $documentsource = mysqli_real_escape_string($db_connection, $_POST['documentsource']);
+    $lessonid = preg_replace('#[^0-9]#i', '', $_POST['lessonid']);
+    $documentcategory = preg_replace('#[^a-z0-9]#i', '', $_POST['documentcategory']);
+//Datacheck
+
+    $dnsql = "SELECT id FROM document WHERE documentname='$documentname' LIMIT 1";
+    $dnquery = mysqli_query($db_connection, $dnsql);
+    $name_check = mysqli_num_rows($dnquery);
+
+//Errors
+    if ($documentname === "" || $documentdesc === "" || $documentshortdesc === "" || $documentsource === "" || $lessonid === "" || $documentcategory === ""){
+        echo "The form submission is missing values.";
+        exit();
+    } else if ($name_check > 0){
+        echo "Name already exists.";
+        exit();
+    } else {
+        $sql = "INSERT INTO document (documentname, documentdesc, documentshortdesc, documentsource, lessonid, documentcategory, uploaddate) VALUES('$documentname', '$documentdesc', '$documentshortdesc', '$documentsource','$lessonid', '$documentcategory', now())";
+        mysqli_query($db_connection, $sql);
+
+        echo "send_success";
+        exit();
+    }
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +43,8 @@ if($admin !== true){
     <link rel="stylesheet" type="text/css" href="/catshup/root/css.css"/>
     <script src="/catshup/root/js/js.js"></script>
     <script src="/catshup/root/js/ajax.js"></script>
+    <script src="send/document.js"></script>
+
 </head>
 <body>
 <?php include_once("./../template_php/template_header.php")?>
@@ -57,20 +90,19 @@ if($admin !== true){
             <input id="documentdesc" type="text" onkeyup="restrict('documentdesc');" maxlength="10"/>
             <input id="documentshortdesc" type="text"  onkeyup="restrict('documentshortdesc');" />
             <input id="documentsource" type="text"  onkeyup="restrict('documentsource');" />
-            <select name="lesson" required>
+            <select id="lesson" required>
                 <option value=""></option>
                 <?php while($FORMrow = mysqli_fetch_array($FORMquery)){?>
                     <option value="<?php echo $FORMrow["id"]; ?>"><?php echo $FORMrow["lessonname"]."[".$code[$FORMrow["id"]]."]"; ?></option>
                 <?php };?>
             </select>
-            <select name="documentcategory" required>
+            <select id="documentcategory" required>
                 <option value=""></option>
                 <?php while($CATrow = mysqli_fetch_array($CATquery)){?>
-                    <option value="<?php echo $CATrow["id"]; ?>"><?php echo $CATrow["category"]; ?></option>
+                    <option value="<?php echo $CATrow["category"]; ?>"><?php echo $CATrow["category"]; ?></option>
                 <?php };?>
             </select>
-            <input id="documentcategory" type="text"  onkeyup="restrict('courseurl');" />
-            <input type="submit"/>
+            <input id="documentbutton" type="submit" onclick="documentsend();"/>
             <span id="status"></span>
         </form>
     <?php }?>
